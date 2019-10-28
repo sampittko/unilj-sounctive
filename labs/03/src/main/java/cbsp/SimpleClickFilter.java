@@ -13,30 +13,31 @@ public class SimpleClickFilter extends ClickFilterBase {
 	 */
 	@Override
 	protected void process(float[] samples) {
-		double sum = 0, mean, threshold, meanSamplesStd;
-		double[] samplesStd = new double[samples.length];
+		double sum = 0.0, mean, std, threshold;
+		double[] stdSamples = new double[samples.length];
 
 		for (int i = 0; i < samples.length; i++) {
-			sum += Math.abs(samples[i]);
+			if (i + 1 < samples.length) {
+				sum += Math.abs(samples[i] - samples[i + 1]);
+			}
 		}
 
 		mean = sum / samples.length;
 
 		System.out.println(mean);
 
-		for (int i = 0; i < samples.length; i++) {
-			samplesStd[i] = Math.abs(samples[i] - mean);
-		}
-
 		sum = 0;
 
-		for (int i = 0; i < samplesStd.length; i++) {
-			sum += Math.abs(samplesStd[i]);
-		}
+        for (int i = 0; i < samples.length; i++) {
+            stdSamples[i] = Math.pow(samples[i] - mean, 2) - Math.pow(mean, 2);
+            sum += stdSamples[i];
+        }
 
-		threshold = sum / samplesStd.length;
+        std = Math.sqrt(sum / stdSamples.length);
 
-		System.out.println(threshold);
+        System.out.println(std);
+
+        threshold = mean + (3.0 * std);
 
 		// TODO Task 1.
 
@@ -45,5 +46,9 @@ public class SimpleClickFilter extends ClickFilterBase {
 				samples[i] = 0.0f;
 			}
 		}
+
+		// ANSWERS
+		// mean 0.010
+		// std 0.0107
 	}
 }
