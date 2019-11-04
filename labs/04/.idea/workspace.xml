@@ -2,37 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8f241fc8-4861-4bcb-94cc-25ccd7c918c5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_wendykierp_JTransforms_3_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_11.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_math3_3_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jfree_jcommon_1_0_23.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jfree_jfreechart_1_0_19.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__pl_edu_icm_JLargeArrays_1_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/04FiltersInFrequencyDomain.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/04filtersinfrequencydomain.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FrequencyPowerSpectrum0.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/output.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cbsp/Equalizer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cbsp/FiltersBase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cbsp/FrequencySpectrum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cbsp/NotchFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/cbsp/SimpleFilters.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/media/siney.wav" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/jsyn-20171016.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/cbsp/AppTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../03/src/main/java/cbsp/GeneralClickFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../03/src/main/java/cbsp/GeneralClickFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../03/src/main/java/cbsp/SimpleClickFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../03/src/main/java/cbsp/SimpleClickFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../03/src/main/media/output.wav" beforeDir="false" afterPath="$PROJECT_DIR$/../03/src/main/media/output.wav" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../03/target/classes/cbsp/SimpleClickFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/../03/target/classes/cbsp/SimpleClickFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,6 +12,13 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
   </component>
   <component name="ProjectId" id="1Spvq2f1KLJhR7CJLq5zaiPdbse" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -130,7 +107,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1572273538562</updated>
-      <workItem from="1572273541604" duration="3818000" />
+      <workItem from="1572273541604" duration="4119000" />
+      <workItem from="1572878216208" duration="75000" />
     </task>
     <servers />
   </component>
@@ -142,7 +120,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
