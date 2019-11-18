@@ -1,12 +1,10 @@
-import Appbar from './common/Appbar'
-import Container from './common/Container'
-import FileUpload from './FileUpload'
+import Container from './components/common/Container'
+import FileUpload from './components/FileUpload'
 import React from 'react';
 
 const App = () => {
   return (
     <Container>
-      <Appbar />
       <FileUpload />
     </Container>
   );
