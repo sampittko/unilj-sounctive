@@ -1,3 +1,5 @@
+import { FULL_CENTERING_CLASS_NAME, fullCenteringClass } from '../commonStyles';
+
 import { Button } from '@material-ui/core';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import PropTypes from 'prop-types';
@@ -9,6 +11,7 @@ const useStyles = makeStyles({
   input: {
     display: 'none',
   },
+  ...fullCenteringClass
 })
 
 const ChooseFileButton = props => {
@@ -21,7 +24,7 @@ const ChooseFileButton = props => {
   }
 
   return (
-    <div>
+    <div className={classes[FULL_CENTERING_CLASS_NAME]}>
       <input
         id="button-file"
         className={classes.input}

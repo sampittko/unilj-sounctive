@@ -1,50 +1,39 @@
+import ActiveStepText from './components/common/ActiveStepText';
 import ChooseFileButton from './components/ChooseFileButton'
 import ChooseModification from './components/choosemodification/ChooseModification';
-import ChosenFileText from './components/common/ChosenFileText';
 import Container from './components/common/Container'
+import DownloadFile from './components/DownloadFile';
+import Modify from './components/modify/Modify';
 import React from 'react'
-import Stepper from './components/Stepper';
-import { makeStyles } from '@material-ui/styles';
-
-const useStyles = makeStyles({
-  centered: {
-    height: '100vh',
-    width: '100vw',
-    textAlign: 'center',
-    display: 'table-cell',
-    verticalAlign: 'middle',
-  },
-})
+import Stepper from './components/stepper/Stepper';
 
 const App = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const [file, setFile] = React.useState(null);
   const [modification, setModification] = React.useState(null);
-  const classes = useStyles();
 
   const getMainComponent = () => {
-    let component;
     switch (activeStep) {
-      case 1: component = (
+      case 1:
+        return (
           <ChooseModification
             activeModification={modification}
             onChoose={handleChosenModification}
           />
         );
-        break;
-      case 2: console.log("Not yet implemented"); break;
-      default: component = <ChooseFileButton onChoose={handleChosenFile}/>; break;
+      case 2:
+        return <Modify/>;
+      case 3:
+        return <DownloadFile/>;
+      default:
+        return <ChooseFileButton onChoose={handleChosenFile}/>;
     }
-    return (
-      <div className={classes.centered}>
-        {component}
-      </div>
-    );
   }
 
   const handleCanceledEdit = () => {
     setActiveStep(0);
     setFile(null);
+    setModification(null);
   }
 
   const handleChosenFile = chosenFile => {
@@ -64,9 +53,13 @@ const App = () => {
       cancelableEdit={activeStep !== 0}
       onEditCanceled={handleCanceledEdit}
     >
-      <ChosenFileText fileName={file ? file.name : ""} />
+      <ActiveStepText activeStep={activeStep}/>
       {getMainComponent()}
-      <Stepper activeStep={activeStep}/>
+      <Stepper
+        activeStep={activeStep}
+        fileName={file ? file.name : ""}
+        modification={modification}
+      />
     </Container>
   );
 }

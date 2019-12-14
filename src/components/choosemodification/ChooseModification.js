@@ -1,35 +1,40 @@
+import { FULL_CENTERING_CLASS_NAME, fullCenteringClass, horizontalCenteringProps } from '../../commonStyles';
+
 import FormControlLabel from './FormControlLabel';
+import { MODIFICATIONS_LABELS } from '../../utils/chooseModificationUtils';
 import PropTypes from 'prop-types';
 import { RadioGroup } from '@material-ui/core';
 import React from 'react';
 import { makeStyles } from '@material-ui/styles';
-import { sharedStyles } from '../common/Container';
 
 const useStyles = makeStyles({
   radioGroup: {
     alignContent: 'space-around',
-    ...sharedStyles
+    ...horizontalCenteringProps
   },
+  ...fullCenteringClass
 })
 
 const ChooseModification = props => {
   const classes = useStyles();
   return (
-    <RadioGroup
-      aria-label="modification"
-      name="modification"
-      value={props.activeModification}
-      onChange={event => props.onChoose(event.target.value)}
-      className={classes.radioGroup}
-    >
-      <FormControlLabel label="Bass booster"/>
-      <FormControlLabel label="Pitch shifter"/>
-      <FormControlLabel label="Volume changer"/>
-      <FormControlLabel label="Speed changer"/>
-      <FormControlLabel label="Reverser"/>
-      <FormControlLabel label="Trimmer"/>
-      <FormControlLabel label="Cutter"/>
-    </RadioGroup>
+    <div className={classes[FULL_CENTERING_CLASS_NAME]}>
+      <RadioGroup
+        aria-label="modification"
+        name="modification"
+        value={props.activeModification}
+        onChange={event => props.onChoose(event.target.value)}
+        className={classes.radioGroup}
+      >
+        <FormControlLabel label={MODIFICATIONS_LABELS.NO_1}/>
+        <FormControlLabel label={MODIFICATIONS_LABELS.NO_2}/>
+        <FormControlLabel label={MODIFICATIONS_LABELS.NO_3}/>
+        <FormControlLabel label={MODIFICATIONS_LABELS.NO_4}/>
+        <FormControlLabel label={MODIFICATIONS_LABELS.NO_5}/>
+        <FormControlLabel label={MODIFICATIONS_LABELS.NO_6}/>
+        <FormControlLabel label={MODIFICATIONS_LABELS.NO_7}/>
+      </RadioGroup>
+    </div>
   );
 }
 
