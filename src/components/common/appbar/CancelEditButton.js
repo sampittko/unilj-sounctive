@@ -5,23 +5,20 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { makeStyles } from "@material-ui/styles";
 
-const useStyles = makeStyles(props => ({
-  tooltip: {
-    display: props.visible ? 'inherit' : 'none',
-  },
-  iconButton: {
+const useStyles = makeStyles({
+  iconButton: props => ({
+    display: props.visible ? 'initial' : 'none',
     position: 'absolute',
     right: '24px',
-  },
-}))
+  }),
+})
 
-const CancelButton = props => {
+const CancelEditButton = props => {
   const classes = useStyles(props);
   return (
     <Tooltip
       placement="left"
-      title="Cancel editing"
-      className={classes.tooltip}
+      title="Cancel edit"
     >
       <IconButton
         className={classes.iconButton}
@@ -34,9 +31,9 @@ const CancelButton = props => {
   );
 }
 
-CancelButton.propTypes = {
+CancelEditButton.propTypes = {
   visible: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
 }
 
-export default CancelButton;
+export default CancelEditButton;

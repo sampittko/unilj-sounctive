@@ -1,6 +1,6 @@
 import { AppBar, Toolbar } from "@material-ui/core"
 
-import CancelButton from "./CancelButton";
+import CancelEditButton from "./CancelEditButton";
 import PropTypes from 'prop-types';
 import React from 'react';
 import Title from "./Title";
@@ -10,7 +10,7 @@ const AppBarComponent = props => {
     <AppBar>
       <Toolbar>
         <Title/>
-        <CancelButton
+        <CancelEditButton
           visible={props.cancelableEdit}
           onClick={props.onEditCanceled}
         />

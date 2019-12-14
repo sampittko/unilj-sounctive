@@ -18,21 +18,17 @@ const useStyles = makeStyles({
 const Container = props => {
   const classes = useStyles();
   return (
-    <Grid container className={classes.container}>
+    <Grid
+      container
+      className={classes.container}
+      container
+    >
       <Grid item xs={12}>
         <Appbar
           cancelableEdit={props.cancelableEdit}
           onEditCanceled={props.onEditCanceled}
         />
-      </Grid>
-      <Grid item xs={12}>
-        <Grid container>
-          {React.Children.map(props.children, child => (
-            <Grid item xs={12}>
-              {React.cloneElement(child)}
-            </Grid>
-          ))}
-        </Grid>
+        {props.children}
       </Grid>
     </Grid>
   );
