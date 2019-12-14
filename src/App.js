@@ -5,7 +5,7 @@ import Container from './components/common/Container'
 import DownloadFile from './components/DownloadFile';
 import Modify from './components/modify/Modify';
 import React from 'react'
-import Stepper from './components/stepper/Stepper';
+import Stepper from './components/common/stepper/Stepper';
 
 const App = () => {
   const [activeStep, setActiveStep] = React.useState(0);

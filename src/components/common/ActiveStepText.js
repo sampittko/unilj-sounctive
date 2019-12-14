@@ -12,6 +12,7 @@ const useStyles = makeStyles({
     left: 0,
     right: 0,
     fontWeight: 'bolder',
+    textTransform: 'uppercase',
     ...horizontalCenteringProps
   }
 });
@@ -25,6 +26,7 @@ const ActiveStepText = props => {
       case 1: return "Modification selection";
       case 2: return "Song modification";
       case 3: return "Download";
+      default: return "Unknown";
     }
   }
 

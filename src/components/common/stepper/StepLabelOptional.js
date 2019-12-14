@@ -2,7 +2,7 @@ import { Divider, Typography } from '@material-ui/core';
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import { getLabelFromValue } from '../../utils/chooseModificationUtils';
+import { getLabelFromValue } from '../../../utils/chooseModificationUtils';
 import { makeStyles } from '@material-ui/styles';
 
 const getDefaultText = () =>
@@ -34,6 +34,7 @@ const StepLabelOptional = props => {
         case 1: return getLabelFromValue(props.modification);
         case 2: return "Modification performed";
         case 3: return "Song downloaded";
+        default: return "Unknown";
       }
     }
     else {

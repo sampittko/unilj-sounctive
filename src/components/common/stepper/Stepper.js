@@ -3,7 +3,7 @@ import { Paper, Step, StepLabel, Stepper } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
 import StepLabelOptional from './StepLabelOptional';
-import { horizontalCenteringProps } from '../../commonStyles';
+import { horizontalCenteringProps } from '../../../commonStyles';
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles({
@@ -27,7 +27,7 @@ const StepperComponent = props => {
   const classes = useStyles();
   const steps = getSteps();
   return (
-    <Paper elevation={2} className={classes.wrapper}>
+    <Paper elevation={4} className={classes.wrapper}>
       <Stepper
         alternativeLabel
         activeStep={props.activeStep}
