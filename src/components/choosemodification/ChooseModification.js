@@ -22,8 +22,8 @@ const ChooseModification = props => {
       <RadioGroup
         aria-label="modification"
         name="modification"
-        value={props.activeModification}
-        onChange={event => props.onChoose(event.target.value)}
+        value={props.modification}
+        onChange={event => props.onSuccess(event.target.value)}
         className={classes.radioGroup}
       >
         <FormControlLabel label={MODIFICATIONS_LABELS.NO_1}/>
@@ -39,8 +39,8 @@ const ChooseModification = props => {
 }
 
 ChooseModification.propTypes = {
-  onChoose: PropTypes.func.isRequired,
-  activeModification: PropTypes.string,
+  onSuccess: PropTypes.func.isRequired,
+  modification: PropTypes.string,
 }
 
 export default ChooseModification;

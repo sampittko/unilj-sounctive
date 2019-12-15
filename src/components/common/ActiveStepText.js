@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Typography } from "@material-ui/core"
+import { getLabelFromValue } from '../../utils/chooseModificationUtils';
 import { horizontalCenteringProps } from '../../commonStyles';
 import { makeStyles } from '@material-ui/styles';
 
@@ -24,7 +25,7 @@ const ActiveStepText = props => {
     switch (props.activeStep) {
       case 0: return "MP3 file selection";
       case 1: return "Modification selection";
-      case 2: return "Song modification";
+      case 2: return getLabelFromValue(props.modification);
       case 3: return "Download";
       default: return "Unknown";
     }
@@ -39,6 +40,7 @@ const ActiveStepText = props => {
 
 ActiveStepText.propTypes = {
   activeStep: PropTypes.number.isRequired,
+  modification: PropTypes.string,
 }
 
 export default ActiveStepText;

@@ -10,6 +10,7 @@ export const fullCenteringClass = {
     borderBottom: '10vh solid #fff',
   },
 }
+
 export const horizontalCenteringProps = {
   minWidth: '642px',
   margin: '0 auto',

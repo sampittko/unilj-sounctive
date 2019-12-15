@@ -4,7 +4,6 @@ import { Button } from '@material-ui/core';
 import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { SUPPORTED_FILE_TYPES } from '../config';
 import { makeStyles } from '@material-ui/styles';
 
 const useStyles = makeStyles({
@@ -20,7 +19,7 @@ const ChooseFileButton = props => {
   const handleChange = event => {
     let files = Array.from(event.target.files);
     let file = files[0];
-    props.onChoose(file);
+    props.onSuccess(file);
   }
 
   return (
@@ -29,7 +28,7 @@ const ChooseFileButton = props => {
         id="button-file"
         className={classes.input}
         type="file"
-        accept={SUPPORTED_FILE_TYPES}
+        accept="audio/mp3"
         onChange={handleChange}
       />
       <label htmlFor="button-file">
@@ -47,7 +46,7 @@ const ChooseFileButton = props => {
 }
 
 ChooseFileButton.propTypes = {
-  onChoose: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func.isRequired,
 }
 
 export default ChooseFileButton;
