@@ -24,9 +24,9 @@ const ActiveStepText = props => {
   const getContent = () => {
     switch (props.activeStep) {
       case 0: return "MP3 file selection";
-      case 1: return "Modification selection";
+      case 1: return "Tool selection";
       case 2: return getLabelFromValue(props.modification);
-      case 3: return "Download";
+      case 3: return "Download new audio";
       default: return "Unknown";
     }
   }
