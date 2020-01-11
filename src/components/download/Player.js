@@ -49,7 +49,7 @@ const Player = props => {
     if (player) {
       player.disconnect();
     }
-  }, []);
+  }, [player]);
 
   return (
     <div className={classes[FULL_CENTERING_CLASS_NAME]}>

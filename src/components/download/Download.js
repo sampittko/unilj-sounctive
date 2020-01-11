@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { getSounctiveFileName, removeFileExtension } from '../../utils/fileUtils';
 
 import Player from './Player';
 import PropTypes from 'prop-types';
+import { getSounctiveFileName } from '../../utils/fileUtils';
 
 const Download = props => {
   const [downloaded, setDownloaded] = useState(false);
@@ -21,6 +21,7 @@ const Download = props => {
     };
   }());
 
+  // adopted from https://www.russellgood.com/how-to-convert-audiobuffer-to-audio-file/
   const getFileFromAudioBuffer = () => {
     let sampleRate = props.data.audioBuffer.sampleRate;
     let numberOfChannels = props.data.audioBuffer.numberOfChannels;
@@ -63,7 +64,6 @@ const Download = props => {
       offset++;                                                             // next source sample
     }
 
-    // create Blob
     return new Blob([buffer], { type: "audio/wav" });
 
     function setUint16(data) {

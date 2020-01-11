@@ -3,8 +3,7 @@ import { Typography, makeStyles } from '@material-ui/core';
 
 import PropTypes from 'prop-types';
 import React from 'react';
-
-// import Tone from 'tone';
+import Tone from 'tone';
 
 const useStyles = makeStyles({
   ...fullCenteringClass
@@ -27,38 +26,28 @@ const Modify = props => {
             audioBuffer.duration * audioBuffer.sampleRate,
             audioBuffer.sampleRate
           );
-        let source = offlineContext.createBufferSource();
+
+        Tone.setContext(offlineContext);
+
+        let source = Tone.context.rawContext.createBufferSource();
         
         source.buffer = audioBuffer;
 
-        // let compressor = offlineContext.createDynamicsCompressor();
+        let volume = new Tone.Volume(-4);
+        let pitchShift = new Tone.PitchShift(7);
 
-        // compressor.threshold.setValueAtTime(-20, offlineContext.currentTime);
-        // compressor.knee.setValueAtTime(30, offlineContext.currentTime);
-        // compressor.ratio.setValueAtTime(1, offlineContext.currentTime);
-        // compressor.attack.setValueAtTime(.05, offlineContext.currentTime);
-        // compressor.release.setValueAtTime(.25, offlineContext.currentTime);
-
-        // let gainNode = offlineContext.createGain();
-        // gainNode.gain.setValueAtTime(1, offlineContext.currentTime);
-
-        // source.connect(compressor);
-        // compressor.connect(offlineContext.destination);
-
-        // source.connect(compressor);
-        // compressor.connect(gainNode);
-        // gainNode.connect(offlineContext.destination);
-
-        source.connect(offlineContext.destination);
+        Tone.connect(source, volume);
+        volume.connect(pitchShift);
+        pitchShift.connect(Tone.context.rawContext.destination);
 
         source.start();
 
-        offlineContext
+        Tone.context.rawContext
           .startRendering()
           .then(renderedBuffer => {
             props.onSuccess({
               audioBuffer: renderedBuffer,
-              contextLength: offlineContext.length,
+              contextLength: Tone.context.rawContext.length,
             });
           })
           .catch(function (err) {

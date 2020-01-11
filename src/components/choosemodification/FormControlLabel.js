@@ -19,12 +19,14 @@ const FormControlLabelComponent = props => {
         control={<Radio />}
         label={props.label}
         className={classes.formControlLabel}
+        disabled={props.disabled}
       />
   );
 }
 
 FormControlLabelComponent.propTypes = {
   label: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
 }
 
 export default FormControlLabelComponent;
