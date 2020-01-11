@@ -28,7 +28,7 @@ const ChooseFileButton = props => {
         id="button-file"
         className={classes.input}
         type="file"
-        accept="audio/mp3"
+        accept="audio/wav"
         onChange={handleChange}
       />
       <label htmlFor="button-file">
@@ -38,7 +38,7 @@ const ChooseFileButton = props => {
           component="span"
           endIcon={<InsertDriveFileIcon />}
         >
-          Choose MP3 file
+          Choose WAV file
         </Button>
       </label>
     </div>

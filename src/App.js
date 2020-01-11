@@ -1,18 +1,24 @@
-import { ACTIONS } from './utils/appUtils';
 import ActiveStepText from './components/common/ActiveStepText';
 import ChooseFileButton from './components/ChooseFileButton'
 import ChooseModification from './components/choosemodification/ChooseModification';
 import Container from './components/common/Container'
-import Download from './components/Download';
+import Download from './components/download/Download';
 import Modify from './components/modify/Modify';
 import React from 'react'
 import Stepper from './components/common/stepper/Stepper';
+
+const ACTIONS = {
+  CHOOSE_MODIFICATION: 'choose-modification',
+  MODIFY: 'modify',
+  DOWNLOAD_FILE: 'download-file',
+  CHOOSE_FILE: 'choose-file',
+}
 
 const App = () => {
   const [activeStep, setActiveStep] = React.useState(0);
   const [file, setFile] = React.useState(null);
   const [modification, setModification] = React.useState(null);
-  const [modifiedFile, setModifiedFile] = React.useState(null);
+  const [data, setData] = React.useState(null);
 
   const getMainComponent = () => {
     switch (activeStep) {
@@ -28,13 +34,14 @@ const App = () => {
           <Modify
             modification={modification}
             file={file}
-            onSuccess={modifiedFile => handleSuccess(ACTIONS.MODIFY, modifiedFile)}
+            onSuccess={data => handleSuccess(ACTIONS.MODIFY, data)}
           />
         );
       case 3:
         return (
           <Download
-            file={modifiedFile}
+            file={file}
+            data={data}
             onSuccess={() => handleSuccess(ACTIONS.DOWNLOAD_FILE)}
           />
         );
@@ -43,16 +50,16 @@ const App = () => {
     }
   }
 
-  const handleSuccess = (action, x) => {
+  const handleSuccess = (action, value) => {
     switch (action) {
       case ACTIONS.CHOOSE_FILE:
-        setFile(x);
+        setFile(value);
         break;
       case ACTIONS.CHOOSE_MODIFICATION:
-        setModification(x);
+        setModification(value);
         break;
       case ACTIONS.MODIFY:
-        setModifiedFile(x);
+        setData(value);
         break;
       default:
         resetAppState();
@@ -69,13 +76,13 @@ const App = () => {
     setActiveStep(0);
     setFile(null);
     setModification(null);
-    setModifiedFile(null);
+    setData(null);
   }
 
   return (
     <Container
-      cancelableEdit={activeStep !== 0}
-      onEditCanceled={resetAppState}
+      activeStep={activeStep}
+      onButtonClick={resetAppState}
     >
       <ActiveStepText
         activeStep={activeStep}

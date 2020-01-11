@@ -16,8 +16,8 @@ const Container = props => {
     <Grid container className={classes.container}>
       <Grid item xs={12}>
         <Appbar
-          cancelableEdit={props.cancelableEdit}
-          onEditCanceled={props.onEditCanceled}
+          activeStep={props.activeStep}
+          onButtonClick={props.onButtonClick}
         />
         {props.children}
       </Grid>
@@ -30,8 +30,8 @@ Container.propTypes = {
     PropTypes.arrayOf(PropTypes.object),
     PropTypes.object
   ]).isRequired,
-  cancelableEdit: PropTypes.bool.isRequired,
-  onEditCanceled: PropTypes.func.isRequired,
+  activeStep: PropTypes.number.isRequired,
+  onButtonClick: PropTypes.func.isRequired,
 }
 
 export default Container;

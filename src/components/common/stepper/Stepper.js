@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 });
 
 const getSteps = () =>
-  ['Choose MP3 file', 'Choose tool', 'Modify audio', 'Download new audio'];
+  ['Choose WAV file', 'Choose tool', 'Modify audio', 'Download new audio'];
 
 const StepperComponent = props => {
   const classes = useStyles();

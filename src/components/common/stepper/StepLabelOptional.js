@@ -30,14 +30,16 @@ const StepLabelOptional = props => {
   const getContent = () => {
     if (props.activeStep > props.index) {
       switch (props.index) {
-        case 0: return props.fileName.replace('.mp3', '');
+        case 0: return props.fileName.replace('.wav', '');
         case 1: return getLabelFromValue(props.modification);
         case 2: return "Modification performed";
-        case 3: return "Song downloaded";
         default: return "Unknown";
       }
     }
     else {
+      if (props.activeStep === 3) {
+        return "Ready to download";
+      }
       return getDefaultText()[props.index];
     }
   }
