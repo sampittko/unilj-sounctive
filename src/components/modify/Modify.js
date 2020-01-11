@@ -1,5 +1,5 @@
 import { FULL_CENTERING_CLASS_NAME, fullCenteringClass } from '../../commonStyles';
-import { Fade, LinearProgress, Slider, Typography, makeStyles } from '@material-ui/core';
+import { LinearProgress, Slider, Typography, makeStyles } from '@material-ui/core';
 import React, { useState } from 'react';
 
 import { MODIFICATIONS_VALUES } from '../../utils/chooseModificationUtils';
@@ -75,20 +75,22 @@ const Modify = props => {
   }
 
   const appendModificationValueToGraph = source => {
-    let component;
+    let component1, component2;
     
     switch (props.modification) {
       case MODIFICATIONS_VALUES.NO_1:
-        console.error("Unsupported operation");
-        return;
+        let sliderValue = getSliderValue(true);
+        component1 = new Tone.Filter(200 - sliderValue * 20, "lowshelf");
+        component2 = new Tone.Gain(sliderValue * 0.5);
+        break;
       case MODIFICATIONS_VALUES.NO_2:
-        component = new Tone.PitchShift(value);
+        component1 = new Tone.PitchShift(value);
         break;
       case MODIFICATIONS_VALUES.NO_3:
-        component = new Tone.Volume(value);
+        component1 = new Tone.Volume(value);
         break;
       case MODIFICATIONS_VALUES.NO_4:
-        console.error("Unsupported operation");
+        source.playbackRate.value = value;
         return;
       case MODIFICATIONS_VALUES.NO_5:
         console.error("Unsupported operation");
@@ -104,8 +106,17 @@ const Modify = props => {
         return;
     }
 
-    Tone.connect(source, component);
-    component.connect(Tone.context.rawContext.destination);
+    Tone.connect(source, component1);
+
+    if (component2) {
+      component1.connect(component2);
+      component2.connect(Tone.context.rawContext.destination);
+      return;
+    }
+
+    if (component1) {
+      component1.connect(Tone.context.rawContext.destination);
+    }
   }
 
   const getTextValue = () => {
@@ -113,6 +124,31 @@ const Modify = props => {
       return `+${value}`;
     }
     return value;
+  }
+
+  const getSliderValue = max => {
+    switch (props.modification) {
+      case MODIFICATIONS_VALUES.NO_1:
+        return max ? 5 : 0;
+      case MODIFICATIONS_VALUES.NO_2:
+        return max ? 24 : -24;
+      case MODIFICATIONS_VALUES.NO_3:
+        return max ? 20 : -20;
+      case MODIFICATIONS_VALUES.NO_4:
+        return max ? 2.0 : 0.5;
+      case MODIFICATIONS_VALUES.NO_5:
+        console.error("Unsupported operation");
+        return;
+      case MODIFICATIONS_VALUES.NO_6:
+        console.error("Unsupported operation");
+        return;
+      case MODIFICATIONS_VALUES.NO_7:
+        console.error("Unsupported operation");
+        return;
+      default:
+        console.error("Invalid modification maxValue");
+        return;
+    }
   }
 
   return (
@@ -131,26 +167,23 @@ const Modify = props => {
         />
       )}
       <Slider
-        defaultValue={0}
-        step={1}
+        defaultValue={props.modification === MODIFICATIONS_VALUES.NO_4 ? 1.0 : 0}
+        step={props.modification === MODIFICATIONS_VALUES.NO_4 ? 0.1 : 1}
         marks
-        min={-5}
-        max={5}
+        min={getSliderValue(false)}
+        max={getSliderValue(true)}
         track={false}
         onChange={(event, value) => setValue(value)}
         onChangeCommitted={applyModification}
         disabled={applyingModification}
       />
-      {applyingModification && (
-        <Fade in timeout={1500}>
-          <Typography
-            variant="body2"
-            className={classes.captionGrayText}
-          >
-            Please wait, processing changes..
-          </Typography>
-        </Fade>
-      )}
+      <Typography
+        style={!applyingModification ? {visibility: 'hidden'} : {visibility: 'visible'}}
+        variant="body2"
+        className={classes.captionGrayText}
+      >
+        Please wait, processing changes..
+      </Typography>
     </div>
   );
 };

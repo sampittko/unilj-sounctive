@@ -1,6 +1,6 @@
 import { Button, Card, CardActions, CardContent, IconButton, Typography, makeStyles } from '@material-ui/core';
 import { FULL_CENTERING_CLASS_NAME, fullCenteringClass, horizontalCenteringProps } from '../../commonStyles';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import GetAppIcon from '@material-ui/icons/GetApp';
 import PlayArrow from '@material-ui/icons/PlayArrow';
