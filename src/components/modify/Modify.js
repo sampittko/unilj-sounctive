@@ -3,7 +3,8 @@ import { Typography, makeStyles } from '@material-ui/core';
 
 import PropTypes from 'prop-types';
 import React from 'react';
-import Tone from 'tone';
+
+// import Tone from 'tone';
 
 const useStyles = makeStyles({
   ...fullCenteringClass
@@ -12,46 +13,56 @@ const useStyles = makeStyles({
 const Modify = props => {
   const classes = useStyles();
 
-  const performMagic = () => {
+  const applyModification = () => {
     let fr = new FileReader();
     fr.readAsArrayBuffer(props.file);
     fr.addEventListener('load', () => {
       let arrayBuffer = fr.result;
-      let audioContext = new Tone.Context().rawContext;
+      let audioContext = new AudioContext();
       
       audioContext.decodeAudioData(arrayBuffer)
         .then(audioBuffer => {
-        let offlineContext = new Tone.OfflineContext(
+        let offlineContext = new OfflineAudioContext(
             audioBuffer.numberOfChannels,
-            audioBuffer.duration,
+            audioBuffer.duration * audioBuffer.sampleRate,
             audioBuffer.sampleRate
-          ).rawContext;
+          );
         let source = offlineContext.createBufferSource();
         
         source.buffer = audioBuffer;
 
-        let compressor = offlineContext.createDynamicsCompressor();
+        // let compressor = offlineContext.createDynamicsCompressor();
 
-        compressor.threshold.setValueAtTime(-20, offlineContext.currentTime);
-        compressor.knee.setValueAtTime(30, offlineContext.currentTime);
-        compressor.ratio.setValueAtTime(5, offlineContext.currentTime);
-        compressor.attack.setValueAtTime(.05, offlineContext.currentTime);
-        compressor.release.setValueAtTime(.25, offlineContext.currentTime);
+        // compressor.threshold.setValueAtTime(-20, offlineContext.currentTime);
+        // compressor.knee.setValueAtTime(30, offlineContext.currentTime);
+        // compressor.ratio.setValueAtTime(1, offlineContext.currentTime);
+        // compressor.attack.setValueAtTime(.05, offlineContext.currentTime);
+        // compressor.release.setValueAtTime(.25, offlineContext.currentTime);
 
-        source.connect(compressor);
-        compressor.connect(offlineContext.destination);
+        // let gainNode = offlineContext.createGain();
+        // gainNode.gain.setValueAtTime(1, offlineContext.currentTime);
+
+        // source.connect(compressor);
+        // compressor.connect(offlineContext.destination);
+
+        // source.connect(compressor);
+        // compressor.connect(gainNode);
+        // gainNode.connect(offlineContext.destination);
+
+        source.connect(offlineContext.destination);
+
+        source.start();
 
         offlineContext
           .startRendering()
           .then(renderedBuffer => {
-            console.log('Rendering completed successfully');
             props.onSuccess({
               audioBuffer: renderedBuffer,
               contextLength: offlineContext.length,
             });
           })
           .catch(function (err) {
-            console.log('Rendering failed: ' + err);
+            console.error('Rendering failed: ' + err);
           });
       });
     })
@@ -60,7 +71,7 @@ const Modify = props => {
   return (
     <Typography
       className={classes[FULL_CENTERING_CLASS_NAME]}
-      onClick={performMagic}
+      onClick={applyModification}
     >
       Modify.js
     </Typography>

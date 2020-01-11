@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { getLabelFromValue } from '../../../utils/chooseModificationUtils';
 import { makeStyles } from '@material-ui/styles';
+import { removeFileExtension } from '../../../utils/fileUtils';
 
 const getDefaultText = () =>
   ['Not chosen yet', 'Not chosen yet', 'Not modified yet', 'Not created yet'];
@@ -30,9 +31,9 @@ const StepLabelOptional = props => {
   const getContent = () => {
     if (props.activeStep > props.index) {
       switch (props.index) {
-        case 0: return props.fileName.replace('.wav', '');
+        case 0: return removeFileExtension(props.fileName);
         case 1: return getLabelFromValue(props.modification);
-        case 2: return "Modification performed";
+        case 2: return "Modification applied";
         default: return "Unknown";
       }
     }
