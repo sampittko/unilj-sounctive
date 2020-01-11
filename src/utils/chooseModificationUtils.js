@@ -8,7 +8,7 @@ export const MODIFICATIONS_LABELS = {
   NO_7: "Cutter",
 }
 
-const MODIFICATIONS_VALUES = {
+export const MODIFICATIONS_VALUES = {
   NO_1: "bass-boost",
   NO_2: "pitch-shift",
   NO_3: "volume-change",

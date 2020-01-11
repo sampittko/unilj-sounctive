@@ -1,18 +1,40 @@
 import { FULL_CENTERING_CLASS_NAME, fullCenteringClass } from '../../commonStyles';
-import { Typography, makeStyles } from '@material-ui/core';
+import { Fade, LinearProgress, Slider, Typography, makeStyles } from '@material-ui/core';
+import React, { useState } from 'react';
 
+import { MODIFICATIONS_VALUES } from '../../utils/chooseModificationUtils';
 import PropTypes from 'prop-types';
-import React from 'react';
 import Tone from 'tone';
 
 const useStyles = makeStyles({
+  grayText: {
+    color: '#bdbdbd',
+  },
+  captionGrayText: {
+    color: '#bdbdbd',
+    fontStyle: 'italic',
+  },
+  progress: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    zIndex: '100',
+  },
   ...fullCenteringClass
 })
 
 const Modify = props => {
   const classes = useStyles();
+  
+  const [value, setValue] = useState(0);
+  const [applyingModification, setApplyingModification] = useState(false);
 
   const applyModification = () => {
+    if (value === 0) {
+      return;
+    }
+    setApplyingModification(true);
+
     let fr = new FileReader();
     fr.readAsArrayBuffer(props.file);
     fr.addEventListener('load', () => {
@@ -33,12 +55,7 @@ const Modify = props => {
         
         source.buffer = audioBuffer;
 
-        let volume = new Tone.Volume(-4);
-        let pitchShift = new Tone.PitchShift(7);
-
-        Tone.connect(source, volume);
-        volume.connect(pitchShift);
-        pitchShift.connect(Tone.context.rawContext.destination);
+        appendModificationValueToGraph(source);
 
         source.start();
 
@@ -50,20 +67,91 @@ const Modify = props => {
               contextLength: Tone.context.rawContext.length,
             });
           })
-          .catch(function (err) {
+          .catch(err => {
             console.error('Rendering failed: ' + err);
           });
       });
     })
   }
 
+  const appendModificationValueToGraph = source => {
+    let component;
+    
+    switch (props.modification) {
+      case MODIFICATIONS_VALUES.NO_1:
+        console.error("Unsupported operation");
+        return;
+      case MODIFICATIONS_VALUES.NO_2:
+        component = new Tone.PitchShift(value);
+        break;
+      case MODIFICATIONS_VALUES.NO_3:
+        component = new Tone.Volume(value);
+        break;
+      case MODIFICATIONS_VALUES.NO_4:
+        console.error("Unsupported operation");
+        return;
+      case MODIFICATIONS_VALUES.NO_5:
+        console.error("Unsupported operation");
+        return;
+      case MODIFICATIONS_VALUES.NO_6:
+        console.error("Unsupported operation");
+        return;
+      case MODIFICATIONS_VALUES.NO_7:
+        console.error("Unsupported operation");
+        return;
+      default:
+        console.error("Invalid modification value");
+        return;
+    }
+
+    Tone.connect(source, component);
+    component.connect(Tone.context.rawContext.destination);
+  }
+
+  const getTextValue = () => {
+    if (value > 0) {
+      return `+${value}`;
+    }
+    return value;
+  }
+
   return (
-    <Typography
-      className={classes[FULL_CENTERING_CLASS_NAME]}
-      onClick={applyModification}
-    >
-      Modify.js
-    </Typography>
+    <div className={classes[FULL_CENTERING_CLASS_NAME]}>
+      <Typography
+        gutterBottom
+        variant="h3"
+        className={applyingModification ? classes.grayText : ""}
+      >
+        {getTextValue()}
+      </Typography>
+      {applyingModification && (
+        <LinearProgress
+          variant="query"
+          className={classes.progress}
+        />
+      )}
+      <Slider
+        defaultValue={0}
+        step={1}
+        marks
+        min={-5}
+        max={5}
+        track={false}
+        onChange={(event, value) => setValue(value)}
+        onChangeCommitted={applyModification}
+        disabled={applyingModification}
+      />
+      {applyingModification && (
+        <Fade in timeout={1500}>
+          <Typography
+            variant="body2"
+            className={classes.captionGrayText}
+          >
+            Please wait, processing changes..
+          </Typography>
+        </Fade>
+      )}
+    </div>
   );
 };
 

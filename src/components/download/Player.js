@@ -45,11 +45,12 @@ const Player = props => {
     setPlayerState(PLAYER_STATES.STOPPED);
   }
 
-  useEffect(() => () => {
-    if (player) {
-      player.disconnect();
-    }
-  }, [player]);
+  // TODO verify
+  // useEffect(() => () => {
+  //   if (player) {
+  //     player.disconnect();
+  //   }
+  // }, [player]);
 
   return (
     <div className={classes[FULL_CENTERING_CLASS_NAME]}>
