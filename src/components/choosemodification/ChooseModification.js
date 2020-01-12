@@ -30,7 +30,7 @@ const ChooseModification = props => {
         <FormControlLabel label={MODIFICATIONS_LABELS.NO_2}/>
         <FormControlLabel label={MODIFICATIONS_LABELS.NO_3}/>
         <FormControlLabel label={MODIFICATIONS_LABELS.NO_4}/>
-        <FormControlLabel label={MODIFICATIONS_LABELS.NO_5} disabled/>
+        <FormControlLabel label={MODIFICATIONS_LABELS.NO_5}/>
         <FormControlLabel label={MODIFICATIONS_LABELS.NO_6} disabled/>
         <FormControlLabel label={MODIFICATIONS_LABELS.NO_7} disabled/>
       </RadioGroup>

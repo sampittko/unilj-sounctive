@@ -30,7 +30,7 @@ const Modify = props => {
   const [applyingModification, setApplyingModification] = useState(false);
 
   const applyModification = () => {
-    if (value === 0) {
+    if (value === 0 || (props.modification === MODIFICATIONS_VALUES.NO_4 && value === 1)) {
       return;
     }
     setApplyingModification(true);
@@ -52,9 +52,9 @@ const Modify = props => {
         Tone.setContext(offlineContext);
 
         let source = Tone.context.rawContext.createBufferSource();
-        
-        source.buffer = audioBuffer;
 
+        source.buffer = audioBuffer;
+        
         appendModificationValueToGraph(source);
 
         source.start();
@@ -75,13 +75,13 @@ const Modify = props => {
   }
 
   const appendModificationValueToGraph = source => {
-    let component1, component2;
+    let component1 = null;
+    let component2 = null;
     
     switch (props.modification) {
       case MODIFICATIONS_VALUES.NO_1:
         let sliderValue = getSliderValue(true);
-        component1 = new Tone.Filter(200 - sliderValue * 20, "lowshelf");
-        component2 = new Tone.Gain(sliderValue * 0.5);
+        component1 = new Tone.Filter(200 - sliderValue * 20, "lowshelf", -24);
         break;
       case MODIFICATIONS_VALUES.NO_2:
         component1 = new Tone.PitchShift(value);
@@ -91,10 +91,12 @@ const Modify = props => {
         break;
       case MODIFICATIONS_VALUES.NO_4:
         source.playbackRate.value = value;
-        return;
+        break;
       case MODIFICATIONS_VALUES.NO_5:
-        console.error("Unsupported operation");
-        return;
+        for (let i = 0; i < source.buffer.numberOfChannels; i++) {
+          Array.prototype.reverse.call(source.buffer.getChannelData(i));
+        }
+        break;
       case MODIFICATIONS_VALUES.NO_6:
         console.error("Unsupported operation");
         return;
@@ -106,7 +108,9 @@ const Modify = props => {
         return;
     }
 
-    Tone.connect(source, component1);
+    if (component1) {
+      Tone.connect(source, component1);
+    }
 
     if (component2) {
       component1.connect(component2);
@@ -116,6 +120,10 @@ const Modify = props => {
 
     if (component1) {
       component1.connect(Tone.context.rawContext.destination);
+    }
+
+    if (!component1 && !component2) {
+      source.connect(Tone.context.rawContext.destination);
     }
   }
 
@@ -137,8 +145,7 @@ const Modify = props => {
       case MODIFICATIONS_VALUES.NO_4:
         return max ? 2.0 : 0.5;
       case MODIFICATIONS_VALUES.NO_5:
-        console.error("Unsupported operation");
-        return;
+        return max ? 1 : 0;
       case MODIFICATIONS_VALUES.NO_6:
         console.error("Unsupported operation");
         return;
